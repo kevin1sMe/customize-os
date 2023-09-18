@@ -10,6 +10,10 @@
 
     # NixOS 官方软件源，这里使用 nixos-unstable 分支
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # nvimdots
+    nvimdots.url = "github:ayamir/nvimdots";
+
     # home-manager，用于管理用户配置
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -18,6 +22,7 @@
       # `inputs.nixpkgs` 保持一致，避免依赖的 nixpkgs 版本不一致导致问题
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
 
   # outputs 即 flake 的所有输出，其中的 nixosConfigurations 即 NixOS 系统配置
@@ -27,7 +32,7 @@
   # 比如这里的输入参数 `nixpkgs`，就是上面 inputs 中的 `nixpkgs`
   # 不过 self 是个例外，这个特殊参数指向 outputs 自身（自引用），以及 flake 根目录
   # 这里的 @ 语法将函数的参数 attribute set 取了个别名，方便在内部使用
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nvimdots,  ... }@inputs: {
     # 名为 nixosConfigurations 的 outputs 会在执行 `sudo nixos-rebuild switch`
     # 时被使用，默认情况下上述命令会使用与主机 hostname 同名的 nixosConfigurations
     # 但是也可以通过 `--flake /path/to/flake/direcotry#nixos-test` 来指定
@@ -82,6 +87,10 @@
              useGlobalPkgs = true;
              users.kevin = ./home-manager/home.nix;
             };
+          }
+          nvimdots.nixosModules
+          {
+            nvimdots = ./nixos/neovim;
           }
         ];
       };

@@ -9,6 +9,7 @@
 
   imports = [
     ./apps/zsh.nix
+    ./apps/nvimdots.nix
   ];
 }
 

@@ -37,10 +37,26 @@
         "type": "github"
       }
     },
+    "nvimdots": {
+      "locked": {
+        "lastModified": 1695001729,
+        "narHash": "sha256-xlulNvZ1jz4gaE8/nlD92HR7IRTAG0kfjr1QGfnL/8M=",
+        "owner": "ayamir",
+        "repo": "nvimdots",
+        "rev": "5310b26546e39d4c3e9c25794df5207e145d83e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ayamir",
+        "repo": "nvimdots",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nvimdots": "nvimdots"
       }
     }
   },
