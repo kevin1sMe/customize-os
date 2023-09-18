@@ -60,6 +60,17 @@
     packages = with pkgs; [ htop ];
   };
 
+  # 使用sudo时免密码
+  security.sudo.extraRules = [
+    { users = [ "kevin" ];
+      commands = [
+        { command = "ALL" ;
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   # 设置zsh为默认shell
   programs.zsh.enable = true; 
   users.users.kevin.shell = pkgs.zsh;
