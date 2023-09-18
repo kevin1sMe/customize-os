@@ -8,6 +8,7 @@
   home.packages = with pkgs; [ tmux ];
 
   imports = [
+    nvimdots.nixosModules.nvimdots
     ./apps/zsh.nix
     ./apps/nvimdots.nix
   ];

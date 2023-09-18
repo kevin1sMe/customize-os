@@ -85,15 +85,11 @@
             home-manager = {
              useUserPackages = true;
              useGlobalPkgs = true;
-             users.kevin = {
-               imports = 
-               [
-                nvimdots.nixosModules.nvimdots
-                (import ./home-manager/home.nix)
-               ];
-             };
-             extraSpecialArgs = { inherit inputs; };
+             users.kevin = ./home-manager/home.nix;
             };
+
+            # 将参数传递给子模块，即home.nix中定义的模块
+            home-manager.extraSpecialArgs = inputs;
           }
         ];
       };
