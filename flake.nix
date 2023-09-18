@@ -32,7 +32,7 @@
   # 比如这里的输入参数 `nixpkgs`，就是上面 inputs 中的 `nixpkgs`
   # 不过 self 是个例外，这个特殊参数指向 outputs 自身（自引用），以及 flake 根目录
   # 这里的 @ 语法将函数的参数 attribute set 取了个别名，方便在内部使用
-  outputs = { self, nixpkgs, home-manager, nvimdots,  ... }@inputs: {
+  outputs = { self, nixpkgs, nvimdots, home-manager, ... }@inputs: {
     # 名为 nixosConfigurations 的 outputs 会在执行 `sudo nixos-rebuild switch`
     # 时被使用，默认情况下上述命令会使用与主机 hostname 同名的 nixosConfigurations
     # 但是也可以通过 `--flake /path/to/flake/direcotry#nixos-test` 来指定
@@ -85,12 +85,15 @@
             home-manager = {
              useUserPackages = true;
              useGlobalPkgs = true;
-             users.kevin = ./home-manager/home.nix;
+             users.kevin = {
+               imports = 
+               [
+                nvimdots.nixosModules.nvimdots
+                (import ./home-manager/home.nix)
+               ];
+             };
+             extraSpecialArgs = { inherit inputs; };
             };
-          }
-          nvimdots.nixosModules
-          {
-            nvimdots = ./nixos/neovim;
           }
         ];
       };
