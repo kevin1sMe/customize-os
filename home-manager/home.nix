@@ -1,14 +1,16 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nvimdots, ... }:
 
 {
   home.username = "kevin";
   home.homeDirectory = "/home/kevin";
   home.stateVersion = "23.05";
 
-  home.packages = with pkgs; [ htop tmux ];
+  home.packages = with pkgs; [ tmux ];
 
   imports = [
+    nvimdots.nixosModules.nvimdots
     ./apps/zsh.nix
+    ./apps/nvimdots.nix
   ];
 }
 
