@@ -10,6 +10,7 @@
   imports = [
     nvimdots.nixosModules.nvimdots
     ./apps/zsh.nix
+    ./apps/nvim.nix
     ./apps/nvimdots.nix
   ];
 }
