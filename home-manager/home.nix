@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/kevin";
   home.stateVersion = "23.05";
 
-  home.packages = with pkgs; [ tmux ];
+  home.packages = with pkgs; [ tmux go docker kubectl helm k9s earthly vault kubecm ];
 
   imports = [
     nvimdots.nixosModules.nvimdots
