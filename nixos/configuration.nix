@@ -86,6 +86,10 @@
     wget
     git
     curl
+
+    # 添加几个会话管理工具
+    tmux
+    byobu
   ];
 
   # vscode 远程开发需要这个开启
