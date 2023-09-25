@@ -79,23 +79,23 @@
           #
           # 如果需要传其他非默认参数，就得使用 specialArgs，你可以取消注释如下这行来启用该参数
           specialArgs = { 
-            inherit user inputs;
+            inherit user;
           }; 
           modules = [
             # 这里导入之前我们使用的 configuration.nix，这样旧的配置文件仍然能生效
             # 注: configuration.nix 本身也是一个 Nix Module，因此可以直接在这里导入
             ./nixos/configuration.nix
-            # home-manager.nixosModules.home-manager
-            # {
-            #   home-manager = {
-            #    useUserPackages = true;
-            #    useGlobalPkgs = true;
-            #    users.${user} = ./home-manager/home.nix;
-            #   };
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+               useUserPackages = true;
+               useGlobalPkgs = true;
+               users.${user} = ./home-manager/home.nix;
+              };
 
-            #   # 将参数传递给子模块，即home.nix中定义的模块
-            #   # home-manager.extraSpecialArgs = inputs;
-            # }
+              # 将参数传递给子模块，即home.nix中定义的模块
+              home-manager.extraSpecialArgs = inputs;
+            }
           ];
         };
       };

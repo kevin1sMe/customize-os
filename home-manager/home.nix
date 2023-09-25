@@ -1,8 +1,11 @@
-{ config, pkgs, nvimdots, ... }:
+{ config, pkgs, nvimdots, user, ... }:
 
+let 
+  user = "kevin";
+in
 {
-  home.username = "kevin";
-  home.homeDirectory = "/home/kevin";
+  home.username = "${user}";
+  home.homeDirectory = "/home/${user}";
   home.stateVersion = "23.05";
 
   home.packages = with pkgs; [ 
