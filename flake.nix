@@ -43,6 +43,11 @@
     #   2. `#` 后面的内容则是 nixosConfigurations 的名称
     let 
       user = "kevin";
+
+      # 在这里定义 specialArgs 然后在下面使用 extraSpecialArgs = specialArgs; 为什么 不行呢？
+      # specialArgs = { 
+      #    inherit user;
+      # }; 
     in {
       nixosConfigurations = {
         # hostname 为 nixos-test 的主机会使用这个配置
@@ -69,10 +74,14 @@
                 users.${user} = import ./home-manager/home.nix;
 
                 # 将参数传递给home.nix
-                # extraSpecialArgs = inputs; # OK
+                # extraSpecialArgs = inputs; # 语法OK，但user没传递过去
                 extraSpecialArgs = inputs // { inherit user ; }; # OK
                 # extraSpecialArgs = specialArgs; # 为什么这里会报 error: undefined variable 'specialArgs' 
-                # extraSpecialArgs = { inherit inputs; };  # error: infinite recursion encountered
+
+                # 以下三个都是定义了一个attribute set, 为什么会报语法错误呢？
+                # extraSpecialArgs =  { inherit user ; }; # error: infinite recursion encountered,  看起来config找不到，为啥？
+                # extraSpecialArgs = { inherit inputs ; };  # error: infinite recursion encountered
+                # extraSpecialArgs = { inherit inputs user; };  # error: infinite recursion encountered
               };
 
             }
