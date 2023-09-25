@@ -1,7 +1,8 @@
 { config, pkgs, nvimdots, user, ... }:
 
 let 
-  user = "kevin";
+  # user = "kevin";
+  # user = "${user}";
 in
 {
   home.username = "${user}";
