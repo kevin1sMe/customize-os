@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
   imports =
@@ -53,16 +53,17 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kevin = {
+  users.users.${user}= {
     isNormalUser = true;
-    description = "kevin";
+    description = "${user}";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ htop ];
+    shell = pkgs.zsh;
   };
 
   # 使用sudo时免密码
   security.sudo.extraRules = [
-    { users = [ "kevin" ];
+    { users = [ "${user}" ];
       commands = [
         { command = "ALL" ;
           options = [ "NOPASSWD" ];
@@ -73,7 +74,6 @@
 
   # 设置zsh为默认shell
   programs.zsh.enable = true; 
-  users.users.kevin.shell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 
   # Allow unfree packages
